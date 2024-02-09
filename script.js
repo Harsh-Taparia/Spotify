@@ -128,7 +128,7 @@ async function displayAlbums() {
 async function main() {
 
     songs = await getSongs("new-songs/a-romantic")
-    playmusic(songs[0].replace(".mp3", ""), true)
+    playmusic(songs[0].replaceAll(".mp3", ""), true)
 
 
     // displaying all albums on the page
