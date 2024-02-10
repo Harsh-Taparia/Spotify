@@ -127,7 +127,7 @@ async function displayAlbums() {
 
 async function main() {
 
-    songs = await getSongs("new-songs/a-romantic")
+    songs = await getSongs("new-songs/a-romantic/Apna Bana Le.mp3")
     playmusic(songs[0].replaceAll(".mp3", ""), true)
 
 
