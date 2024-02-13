@@ -26,7 +26,7 @@ function secondsToMinutesSeconds(seconds) {
 async function getSongs(folder) {
     currFolder = folder;
 
-    let a = await fetch(`${folder}`)
+    let a = await fetch(`./${folder}`)
     let resonse = await a.text();
 
     let div = document.createElement("div");
@@ -72,11 +72,11 @@ async function getSongs(folder) {
 
 
 function playmusic(track, pause = false) {
-    currentSong.src = `/${currFolder}/` + track + ".mp3"
+    currentSong.src = `./${currFolder}/` + track + ".mp3"
 
     if (!pause) {
         currentSong.play()
-        play.src = "images/circle-pause-regular.svg"
+        play.src = "./images/circle-pause-regular.svg"
     }
     document.querySelector('.songinfo').innerHTML = track.replaceAll("%20", " ");
     document.querySelector('.songtime').innerHTML = "00:00 / 00:00"
@@ -84,7 +84,7 @@ function playmusic(track, pause = false) {
 
 
 async function displayAlbums() {
-    let a = await fetch(`new-songs`)
+    let a = await fetch(`./new-songs`)
     let resonse = await a.text();
 
     let div = document.createElement("div");
@@ -103,7 +103,7 @@ async function displayAlbums() {
             let folder = (e.href.split('/new-songs/').slice(-2)[1]);
 
             // getting data of each folder
-            let a = await fetch(`new-songs/${folder}/info.json`)
+            let a = await fetch(`./new-songs/${folder}/info.json`)
             let resonse = await a.json();
 
             cardcont.innerHTML = cardcont.innerHTML + `
@@ -127,7 +127,7 @@ async function displayAlbums() {
 
 async function main() {
 
-    songs = await getSongs("new-songs/a-romantic")
+    songs = await getSongs("./new-songs/a-romantic/")
     playmusic(songs[0].replaceAll(".mp3", ""), true)
 
 
@@ -139,11 +139,11 @@ async function main() {
     // play pause next previous
     play.addEventListener('click', () => {
         if (currentSong.paused) {
-            play.src = "images/circle-pause-regular.svg"
+            play.src = "./images/circle-pause-regular.svg"
             currentSong.play()
         }
         else {
-            play.src = "images/circle-play-regular.svg"
+            play.src = "./images/circle-play-regular.svg"
             currentSong.pause()
         }
     })
