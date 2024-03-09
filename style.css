@@ -10,6 +10,7 @@ body {
     background-color: black;
     color: white;
     font-family: 'Salsa', cursive;
+    overflow: hidden;
 }
 
 .left {
@@ -25,7 +26,7 @@ body {
     position: relative;
     float: right;
     height: 95.5vh;
-    width: 74.3%;
+    width: 74%;
     margin-top: 15px;
     border-radius: 10px;
     margin-left: -5px;
@@ -311,12 +312,21 @@ body {
     height: 20px;
     border: 2px solid black;
     position: relative;
-    bottom: 8px;
+    bottom: 10px;
     left: 0;
     cursor: pointer;
     transition: all 0.5s;
 }
 
+.progress{
+    position: relative;
+    width: 0;
+    left: 0;
+    height: 4px;
+    border-radius: 10px;
+    background-color: blue;
+    transition: all 0.5s;
+}
 
 
 
@@ -387,10 +397,13 @@ body {
     top: 20px;
     font-size: 2rem;
     height: 50px;
+    cursor: pointer;
 }
 
 .close-ham i {
     background-color: #101010;
+    border-radius: 50%;
+    padding: 10px;
 }
 
 .close-ham i:hover {
@@ -438,7 +451,22 @@ body {
 
 
 /* responsiveness */
-@media (max-width: 1427px) {
+
+@media (max-width: 1400px) {
+    .song-lists ul li {
+        width: 270px;
+    }
+
+    .song-lists ul li i {
+        margin-right: 10px;
+    }
+
+    .library {
+        min-height: 75vh;
+    }
+}
+
+@media (max-width: 1355px) {
     .left {
         position: absolute;
         left: -150%;
@@ -456,18 +484,6 @@ body {
 
     .hamburger {
         display: block;
-    }
-}
-
-@media (max-width: 1390px) {
-    .left {
-        width: 30vw;
-    }
-}
-
-@media (max-width: 1390px) {
-    .left {
-        width: 35vw;
     }
 }
 
