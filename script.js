@@ -26,7 +26,7 @@ function secondsToMinutesSeconds(seconds) {
 async function getSongs(folder) {
     currFolder = folder;
 
-    let a = await fetch(`./${folder}`)
+    let a = await fetch(`${folder}`)
     let resonse = await a.text();
 
     let div = document.createElement("div");
@@ -58,6 +58,7 @@ async function getSongs(folder) {
         </li>`
     }
 
+
     // adding event listeners on each song
     Array.from(document.querySelector('.song-lists').getElementsByTagName('li')).forEach(e => {
 
@@ -72,11 +73,11 @@ async function getSongs(folder) {
 
 
 function playmusic(track, pause = false) {
-    currentSong.src = `./${currFolder}/` + track + ".mp3"
+    currentSong.src = `${currFolder}/` + track + ".mp3"
 
     if (!pause) {
         currentSong.play()
-        play.src = "./images/circle-pause-regular.svg"
+        play.src = "images/circle-pause-regular.svg"
     }
     document.querySelector('.songinfo').innerHTML = track.replaceAll("%20", " ");
     document.querySelector('.songtime').innerHTML = "00:00 / 00:00"
@@ -84,7 +85,7 @@ function playmusic(track, pause = false) {
 
 
 async function displayAlbums() {
-    let a = await fetch(`./new-songs`)
+    let a = await fetch(`new-songs`)
     let resonse = await a.text();
 
     let div = document.createElement("div");
@@ -103,7 +104,7 @@ async function displayAlbums() {
             let folder = (e.href.split('/new-songs/').slice(-2)[1]);
 
             // getting data of each folder
-            let a = await fetch(`./new-songs/${folder}/info.json`)
+            let a = await fetch(`new-songs/${folder}/info.json`)
             let resonse = await a.json();
 
             cardcont.innerHTML = cardcont.innerHTML + `
@@ -127,7 +128,7 @@ async function displayAlbums() {
 
 async function main() {
 
-    songs = await getSongs("./new-songs/a-romantic/Apna Bana Le.mp3")
+    songs = await getSongs("new-songs/a-romantic")
     playmusic(songs[0].replaceAll(".mp3", ""), true)
 
 
@@ -139,11 +140,11 @@ async function main() {
     // play pause next previous
     play.addEventListener('click', () => {
         if (currentSong.paused) {
-            play.src = "./images/circle-pause-regular.svg"
+            play.src = "images/circle-pause-regular.svg"
             currentSong.play()
         }
         else {
-            play.src = "./images/circle-play-regular.svg"
+            play.src = "images/circle-play-regular.svg"
             currentSong.pause()
         }
     })
@@ -160,7 +161,9 @@ async function main() {
 
     // forwading song through seekbar
     document.querySelector('.seekbar').addEventListener('click', (e) => {
+
         document.querySelector('.circle').style.left = (e.offsetX / e.target.getBoundingClientRect().width) * 100 + "%"
+
         currentSong.currentTime = ((currentSong.duration) * ((e.offsetX / e.target.getBoundingClientRect().width) * 100)) / 100
     })
 
@@ -183,20 +186,22 @@ async function main() {
             playmusic(songs[index - 1].replaceAll('.mp3', ""))
         }
         else {
-            alert('This is first song of this playlist')
+            playmusic(songs[(songs.length)-1].replaceAll('.mp3', "").replaceAll("%20", " "))
         }
     })
 
     document.querySelector('.song-next').addEventListener('click', () => {
         let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0])
 
-        if ((index + 1) > length) {
+        if ((index + 1) < songs.length) {
             playmusic(songs[index + 1].replaceAll('.mp3', ""))
+        }
+
+        else {
+            playmusic(songs[0].replaceAll('.mp3', "").replaceAll("%20", " "))
         }
     })
 
 }
 
 main()
-
-
